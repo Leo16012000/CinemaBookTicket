@@ -67,7 +67,7 @@ public class UserHome extends JFrame {
                 dispose();
                 UserLogin obj = new UserLogin();
 
-                obj.setTitle("Student-Login");
+                obj.setTitle("Login");
                 obj.setVisible(true);
 
             }

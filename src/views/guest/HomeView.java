@@ -1,4 +1,4 @@
-package views;
+package views.guest;
 
 public class HomeView extends javax.swing.JPanel {
 

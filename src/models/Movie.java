@@ -50,10 +50,10 @@ public class Movie {
         Movie o = new Movie();
         o.setId(rs.getInt("id"));
         o.setPrice(rs.getInt("price"));
-        o.setDurationTime(rs.getInt("durationTime"));
+        o.setDurationTime(rs.getInt("duration_time"));
         o.setTitle(rs.getNString("title"));
         o.setCountry(rs.getNString("country"));
-        o.setCreatedAt(rs.getTimestamp("createdAt"));
+        o.setCreatedAt(rs.getTimestamp("created_at"));
         return o;
     }
 }

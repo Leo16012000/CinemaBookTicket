@@ -1,5 +1,2 @@
 /views/
-/dao/
-/models/
-/resources/
-/main/
+/controllers/

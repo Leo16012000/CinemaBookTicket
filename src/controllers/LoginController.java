@@ -4,14 +4,16 @@ import dao.UserDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 
 import main.SessionManager;
 import models.User;
-import views.CustomerHomeView;
-import views.HomeView;
 import views.LoginView;
+import views.guest.GuestHomeView;
+import views.guest.HomeView;
+import views.user.UserHomeView;
 
 public class LoginController {
 
@@ -33,6 +35,11 @@ public class LoginController {
         view.setVisible(true);
     }
 
+    public void loginAsGuest() throws SQLException {
+    	GuestHomeController controller = new GuestHomeController(new GuestHomeView());
+        controller.getView().setPanel(new HomeView());
+    }
+    
     public void login() {
         String username = view.getTxtUsername().getText();
         String password = new String(view.getTxtPassword().getPassword());
@@ -47,7 +54,6 @@ public class LoginController {
                 return;
             }
             SessionManager.create(user);//Khởi tạo session
-
             switch (user.getPermission()) {
 //                case MANAGER:
 //                    //Admin controller
@@ -56,12 +62,13 @@ public class LoginController {
 //                    view.dispose();// Tắt form đăng nhập
 //                    break;
                 case USER:
-                    CustomerHomeController controller1 = new CustomerHomeController(new CustomerHomeView());
-                    controller1.getView().setPanel(new HomeView());
+                    UserHomeController controller = new UserHomeController(new UserHomeView());
+                    controller.getView().setPanel(new HomeView());
                     view.dispose();// Tắt form đăng nhập                    
                     break;
                 case GUEST:
-                    SessionManager.update();
+                	GuestHomeController controller2 = new GuestHomeController(new GuestHomeView());
+                    controller2.getView().setPanel(new HomeView());
                     view.dispose();
                     break;
                 default:
@@ -100,6 +107,16 @@ public class LoginController {
         view.getLblRegister().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 view.showMessage("Chưa hỗ trợ!");
+            }
+        });
+        view.getLblAccessAsGuest().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                try {
+					loginAsGuest();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }

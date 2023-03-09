@@ -10,7 +10,8 @@ import controllers.admin.StatisticalController;
 import controllers.admin.StatisticalEmployeeController;
 import controllers.admin.StatisticalIncomeController;
 import controllers.admin.TableManagerController;
-import controllers.employee.InformationController;
+import controllers.user.InformationController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;

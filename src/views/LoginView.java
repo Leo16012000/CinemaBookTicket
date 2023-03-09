@@ -18,7 +18,7 @@ public class LoginView extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel4;
 	private javax.swing.JPanel jPanel5;
 	private javax.swing.JLabel lblForgotPassword;
-	private javax.swing.JLabel lblRegister;
+	private javax.swing.JLabel lblRegister, lblAccessAsGuest;
 	private javax.swing.JPasswordField txtPassword;
 	private javax.swing.JTextField txtUsername;
 	// End of variables declaration//GEN-END:variables
@@ -59,6 +59,10 @@ public class LoginView extends javax.swing.JFrame {
 	public JLabel getLblRegister() {
 		return lblRegister;
 	}
+	
+	public JLabel getLblAccessAsGuest() {
+		return lblAccessAsGuest;
+	}
 
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated
@@ -71,6 +75,7 @@ public class LoginView extends javax.swing.JFrame {
 		jPanel5 = new javax.swing.JPanel();
 		jPanel1 = new javax.swing.JPanel();
 		lblRegister = new javax.swing.JLabel();
+		lblAccessAsGuest = new javax.swing.JLabel();
 		btnLogin = new javax.swing.JButton();
 		jPanel3 = new javax.swing.JPanel();
 		txtPassword = new javax.swing.JPasswordField();
@@ -107,15 +112,18 @@ public class LoginView extends javax.swing.JFrame {
 
 		jPanel5.setLayout(new java.awt.BorderLayout());
 
-		jPanel1.setPreferredSize(new java.awt.Dimension(414, 75));
+		jPanel1.setPreferredSize(new java.awt.Dimension(414, 100));
 
 		lblRegister.setForeground(new java.awt.Color(0, 132, 255));
-		lblRegister.setText("Chưa có tài khoản?");
+		lblRegister.setText("Dont have an account?");
+		
+		lblAccessAsGuest.setForeground(new java.awt.Color(0, 132, 255));
+		lblAccessAsGuest.setText("Login as guest");
 
 		btnLogin.setBackground(new java.awt.Color(87, 184, 70));
 		btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 		btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-		btnLogin.setText("Đăng Nhập");
+		btnLogin.setText("Login");
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -124,11 +132,12 @@ public class LoginView extends javax.swing.JFrame {
 						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(lblRegister).addComponent(btnLogin))
+								.addComponent(lblRegister).addComponent(lblAccessAsGuest).addComponent(btnLogin))
 								.addGap(143, 143, 143)));
 		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel1Layout.createSequentialGroup()
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(btnLogin)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(lblAccessAsGuest)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(lblRegister)
 						.addContainerGap()));
 

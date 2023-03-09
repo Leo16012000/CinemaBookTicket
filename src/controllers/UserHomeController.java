@@ -12,23 +12,26 @@ import javax.swing.JPanel;
 
 import main.SessionManager;
 import models.User;
-import views.CustomerHomeView;
-import views.HomeView;
 import views.LoginView;
+import views.guest.HomeView;
+import views.user.UserHomeView;
 
-public class CustomerHomeController {
+public class UserHomeController {
 
-    private CustomerHomeView view;
+    private UserHomeView view;
     HomeView homeView = new HomeView();
     JPanel[] cards = {homeView};
-    public CustomerHomeController(CustomerHomeView view) {
+    public UserHomeController(UserHomeView view) {
         this.view = view;
         view.setVisible(true);
         addEvent();
-        User session = SessionManager.getSession().getUser();
-        if (session != null) {
-            view.getLbName().setText(session.getName());
+        if(SessionManager.getSession() != null) {
+        	User session = SessionManager.getSession().getUser();
+        	view.getLbName().setText(session.getName());
+        } else {
+        	view.getLbName().setText("Guest");
         }
+        
         view.setCards(cards);
         view.setPanel(homeView);
     }
@@ -49,11 +52,11 @@ public class CustomerHomeController {
         });
     }
 //    ------------------------------------------------------------------------------
-    public CustomerHomeView getView() {
+    public UserHomeView getView() {
         return view;
     }
 
-    public void setView(CustomerHomeView view) {
+    public void setView(UserHomeView view) {
         this.view = view;
     }
 }

@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import models.Movie;
 
 public class MovieDao extends Dao<Movie> {
-
+	private static MovieDao instance;
     @Override
     public ArrayList<Movie> getAll() throws SQLException {
         ArrayList<Movie> Movies = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `Movies`";
+        String query = "SELECT * FROM `movies`";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Movie movie = Movie.getFromResultSet(rs);
@@ -92,5 +92,11 @@ public class MovieDao extends Dao<Movie> {
         }
         return movies;
     }
-
+    
+    public static MovieDao getInstance() {
+    	if (instance == null) {
+    		return new MovieDao();
+    	}
+    	return instance;
+    }
 }

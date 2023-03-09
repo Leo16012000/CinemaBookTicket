@@ -25,7 +25,7 @@ public class MovieDao extends Dao<Movie> {
     @Override
     public Movie get(int id) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `Movies` WHERE id = " + id;
+        String query = "SELECT * FROM `movies` WHERE id = " + id;
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             Movie movie = Movie.getFromResultSet(rs);
@@ -39,7 +39,7 @@ public class MovieDao extends Dao<Movie> {
         if (t == null) {
             throw new SQLException("Empty Movie");
         }
-        String query = "INSERT INTO `Movies` (`price`, `dutation_time`, `title`, `country`) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO `movies` (`price`, `dutation_time`, `title`, `country`) VALUES (?, ?, ?, ?)";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, t.getPrice());
@@ -54,7 +54,7 @@ public class MovieDao extends Dao<Movie> {
         if (t == null) {
             throw new SQLException("Movie rỗng");
         }
-        String query = "UPDATE `Movies` SET `price` = ?, `duration_time` = ?, `title` = ?, `country` = ? WHERE `id` = ?";
+        String query = "UPDATE `movies` SET `price` = ?, `duration_time` = ?, `title` = ?, `country` = ? WHERE `id` = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, t.getPrice());
@@ -68,7 +68,7 @@ public class MovieDao extends Dao<Movie> {
 
     @Override
     public void delete(Movie t) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `Movies` WHERE `id` = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `movies` WHERE `id` = ?");
         stmt.setInt(1, t.getId());
         stmt.executeUpdate();
 
@@ -76,7 +76,7 @@ public class MovieDao extends Dao<Movie> {
 
     @Override
     public void deleteById(int id) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `Movies` WHERE `id` = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `movies` WHERE `id` = ?");
         stmt.setInt(1, id);
         stmt.executeUpdate();
     }
@@ -84,7 +84,7 @@ public class MovieDao extends Dao<Movie> {
     public ArrayList<Movie> searchByKey(String key, String word) throws SQLException {
         ArrayList<Movie> movies = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `Movies` WHERE " + key + " LIKE '%" + word + "%';";
+        String query = "SELECT * FROM `movies` WHERE " + key + " LIKE '%" + word + "%';";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Movie movie = Movie.getFromResultSet(rs);

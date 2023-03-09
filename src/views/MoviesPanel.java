@@ -8,6 +8,8 @@ import models.Movie;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MoviesPanel extends JPanel {
     public ArrayList<Movie> movies = new ArrayList<Movie>(MovieDao.getInstance().getAll());;

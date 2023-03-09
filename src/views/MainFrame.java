@@ -30,6 +30,7 @@ public class MainFrame extends JFrame {
 	private JTextField textField;
 	private JTable MovieTable;
 	private JTable ReservationTable;
+//	private JPanel contentPane = new JPanel();
 
 	/**
 	 * Launch the application.
@@ -94,10 +95,10 @@ public class MainFrame extends JFrame {
 //		));
 //		ReservationPanel.add(ReservationTable);
 //		
-//		JPanel ShowtimePanel = new JPanel();
-//		ShowtimePanel.setBounds(114, 32, 553, 471);
-//		contentPane.add(ShowtimePanel);
-//		ShowtimePanel.setLayout(null);
+		JPanel ShowtimePanel = new JPanel();
+		ShowtimePanel.setBounds(114, 32, 553, 471);
+		contentPane.add(ShowtimePanel);
+		ShowtimePanel.setLayout(null);
 //		
 //		JLabel lblMovieName = new JLabel("Movie name");
 //		lblMovieName.setBounds(211, 28, 154, 15);
@@ -144,13 +145,6 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-//		JTable table= moviePanel.getMovieTable();
-//		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-//	        public void valueChanged(ListSelectionEvent event) {
-//	            // do some actions here, for example
-//	            // print first column value from selected row
-//	            System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
-//	        }
 //		
 //		MovieTable = new JTable();
 //		MovieTable.setBounds(30, 212, 375, 112);

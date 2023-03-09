@@ -5,31 +5,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import models.User;
 
-/**
- * @createAt Nov 25, 2020
- * @author Tran Duc Cuong<clonebmn2itt@gmail.com>
- */
-public class MovieDao extends Dao<User> {
+public class UserDao extends Dao<User> {
 
     @Override
     public ArrayList<User> getAll() throws SQLException {
-        ArrayList<User> Movies = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `User`";
+        String query = "SELECT * FROM `users`";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             User user = User.getFromResultSet(rs);
-            Movies.add(user);
+            users.add(user);
         }
-        return Movies;
+        return users;
     }
 
     @Override
     public User get(int id) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `User` WHERE id = " + id;
+        String query = "SELECT * FROM `users` WHERE id = " + id;
+        ResultSet rs = statement.executeQuery(query);
+        if (rs.next()) {
+            User user = User.getFromResultSet(rs);
+            return user;
+        }
+        return null;
+    }
+    
+    public User getByUsername(String username) throws SQLException {
+        Statement statement = conn.createStatement();
+        String query = "SELECT * FROM `users` WHERE username = '" + username + "'";
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             User user = User.getFromResultSet(rs);
@@ -43,13 +53,12 @@ public class MovieDao extends Dao<User> {
         if (t == null) {
             throw new SQLException("Empty User");
         }
-        String query = "INSERT INTO `User` (`price`, `dutationTime`, `title`, `country`) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO `Users` (`name`, `username`, `password`) VALUES (?, ?, ?)";
 
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getPrice());
-        stmt.setInt(2, t.getDurationTime());
-        stmt.setNString(3, t.getTitle());
-        stmt.setNString(4, t.getCountry());
+        stmt.setNString(1, t.getName());
+        stmt.setNString(2, t.getUsername());
+        stmt.setNString(3, t.getPassword());
         int row = stmt.executeUpdate();
     }
 
@@ -58,16 +67,14 @@ public class MovieDao extends Dao<User> {
         if (t == null) {
             throw new SQLException("User rỗng");
         }
-        String query = "UPDATE `User` SET `price` = ?, `durationTime` = ?, `title` = ?, `country` = ? WHERE `id` = ?";
+        String query = "UPDATE `User` SET `name` = ?, `username` = ?, `password` = ? WHERE `id` = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getPrice());
-        stmt.setInt(2, t.getDurationTime());
-        stmt.setNString(3, t.getTitle());
-        stmt.setNString(4, t.getCountry());
+        stmt.setNString(1, t.getName());
+        stmt.setNString(2, t.getUsername());
+        stmt.setNString(3, t.getPassword());
         stmt.setInt(5, t.getId());
         int row = stmt.executeUpdate();
-
     }
 
     @Override

@@ -7,12 +7,14 @@ import java.util.List;
 
 import dao.interfaces.UserDao;
 import daoFactory.DaoFactory;
+import utils.UserPermission;
 
 public class User {
 	private int id;
 	private String name;
 	private String username;
 	private String password;
+	private UserPermission permission;
 	private Timestamp createdAt;
 	public int getId() {
 		return id;
@@ -44,16 +46,23 @@ public class User {
 	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
-	private static UserDao userDAO(){
-		DaoFactory dao = DaoFactory.getDatabase();
-		return dao.getUserDao();
-	}
 	public static User getFromResultSet(ResultSet rs) throws SQLException{
 	      User o = new User();
-	        o.setId(rs.getInt("id"));
-	        o.setName(rs.getNString("name"));
-	        o.setUsername(rs.getNString("username"));
-	        o.setCreatedAt(rs.getTimestamp("createdAt"));
+	      o.setId(rs.getInt("id"));
+	      o.setName(rs.getNString("name"));
+	      o.setUsername(rs.getNString("username"));
+	      o.setPassword(rs.getNString("password"));
+	      o.setPermission(UserPermission.getByCode(rs.getNString("permission")));
+	      o.setCreatedAt(rs.getTimestamp("created_at"));
 		return o;
+	}
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
+	}
+	public UserPermission getPermission() {
+		return permission;
+	}
+	public void setPermission(UserPermission permission) {
+		this.permission = permission;
 	}
 }

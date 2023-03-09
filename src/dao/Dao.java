@@ -3,9 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Dao<T> {
-
     Connection conn = Database.getInstance().getConnection();
 
     public abstract ArrayList<T> getAll() throws SQLException;
@@ -19,4 +20,5 @@ public abstract class Dao<T> {
     public abstract void delete(T t) throws SQLException;
 
     public abstract void deleteById(int id) throws SQLException;
+    
 }

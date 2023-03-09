@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class LoadConfig {
 
-    private static final String CONFIG_PATH = "/config.properties";
+    private static final String CONFIG_PATH = "/resources/config.properties";
     private static LoadConfig intanse;
     private Properties properties = new Properties();
 

@@ -1,20 +1,22 @@
 package controllers;
 
-import dao.EmployeeDao;
+import dao.UserDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Collections;
+import java.util.HashMap;
+
 import main.SessionManager;
-import models.Employee;
-import views.AdminDashboardView;
-import views.EmployeeDashboardView;
+import models.User;
+import views.CustomerHomeView;
+import views.HomeView;
 import views.LoginView;
-import views.admin.HomeView;
 
 public class LoginController {
 
     private LoginView view;
-    EmployeeDao employeeDao = new EmployeeDao();
+    UserDao userDao = new UserDao();
 
     public LoginController(LoginView view) {
         this.view = view;
@@ -35,32 +37,30 @@ public class LoginController {
         String username = view.getTxtUsername().getText();
         String password = new String(view.getTxtPassword().getPassword());
         try {
-            Employee employee = employeeDao.findByUsername(username);
-            if (employee == null) {
+            User user = userDao.getByUsername(username);
+            if (user == null) {
                 view.showError("Không tồn tại tài khoản!");
                 return;
             }
-            if (!employee.checkPassword(password)) {
+            if (!user.checkPassword(password)) {
                 view.showError("Mật khẩu sai");
                 return;
             }
-            SessionManager.create(employee);//Khởi tạo session
+            SessionManager.create(user);//Khởi tạo session
 
-            switch (employee.getPermission()) {
-                case MANAGER:
-                    //Admin controller
-                    AdminDashboardController controller = new AdminDashboardController(new AdminDashboardView());
-                    controller.getView().setPanel(new HomeView());
-                    view.dispose();// Tắt form đăng nhập
-                    break;
-                case STAFF:
-                    EmployeeDashboardController controller1 = new EmployeeDashboardController(new EmployeeDashboardView());
+            switch (user.getPermission()) {
+//                case MANAGER:
+//                    //Admin controller
+//                    AdminDashboardController controller = new AdminDashboardController(new AdminDashboardView());
+//                    controller.getView().setPanel(new HomeView());
+//                    view.dispose();// Tắt form đăng nhập
+//                    break;
+                case USER:
+                    CustomerHomeController controller1 = new CustomerHomeController(new CustomerHomeView());
                     controller1.getView().setPanel(new HomeView());
                     view.dispose();// Tắt form đăng nhập                    
                     break;
-                //Seller Controller
-                case INACTIVE:
-                    view.showError("Tài khoản của bạn đã bị khóa.\nVui lòng liên hệ admin để biết thêm chi tiết");
+                case GUEST:
                     SessionManager.update();
                     view.dispose();
                     break;

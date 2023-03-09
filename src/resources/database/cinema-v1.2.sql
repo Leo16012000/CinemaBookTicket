@@ -46,7 +46,7 @@ create table if not exists auditoriums(
 	id int primary key auto_increment,
 	auditorium_num int not null,
 	seats_num int,
-	created_at timestamp not null
+	created_at timestamp not NULL default current_timestamp
 );
 
 create table if not exists seats_reservation(
@@ -57,6 +57,26 @@ create table if not exists seats_reservation(
 	foreign key(seat_id) references seats(id),
 	foreign key(reservation_id) references reservations(id)
 );
+--7/3/2023 1
+create table if not exists session(
+	id int primary key auto_increment,
+	user_id int not null,
+	start_time timestamp not null,
+	end_time timestamp not null,
+	message varchar(255),
+	foreign key(user_id) references users(id)
+);
+--7/3/2023 2
+ALTER table users add permission enum ('ADMIN', 'USER', 'GUEST') NOT NULL;
+--8/3/2023
+alter table seats rename column seat_num to seat_column;
+
+alter table auditoriums rename column seats_num to seats_row_num;
+alter table auditoriums add seats_column_num int;
+
+DROP table seats_reservation ;
+ALTER table seats add column reservation_id int not null;
+ALTER table seats add foreign key(reservation_id) references reservations(id);
 /*
 
 */
